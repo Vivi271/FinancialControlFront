@@ -19,19 +19,35 @@
                 <form class="user" (ngSubmit)="onRegister(formLogin)" #formLogin="ngForm">
                   <div class="form-group">
                     <input type="text" class="form-control form-control-user" id="exampleInputUser"
-                      aria-describedby="emailHelp" placeholder="Usuario"  name="usuario" ngModel>
+                      aria-describedby="emailHelp" placeholder="Nombre"  name="nombre" ngModel>
                   </div>
                   <div class="form-group">
-                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                      aria-describedby="emailHelp" placeholder="Correo"  name="correo" ngModel>
+                    <input type="number" class="form-control form-control-user" id="exampleInputEmail"
+                      aria-describedby="emailHelp" placeholder="Cedula"  name="cedula" ngModel>
+                  </div>
+                  <div class="form-group">
+                    <input type="email" class="form-control form-control-user" id="exampleInputPassword"
+                      placeholder="Correo electronico" name="correo" ngModel autocomplete="on">
                   </div>
                   <div class="form-group">
                     <input type="password" class="form-control form-control-user" id="exampleInputPassword"
                       placeholder="Clave" name="clave" ngModel autocomplete="on">
                   </div>
+                  <div class="form-group">
+                    <input type="password" class="form-control form-control-user" id="exampleInputPassword"
+                      placeholder="Confirmar clave" name="claveConfirmacion" ngModel autocomplete="on">
+                  </div>
+                  <div class="form-group">
+                    <input type="number" class="form-control form-control-user" id="exampleInputPassword"
+                      placeholder="Telefono" name="telefono" ngModel autocomplete="on">
+                  </div>
+                  <div class="form-group">
+                    <input type="date" class="form-control form-control-user" id="exampleInputPassword"
+                      placeholder="Fecha de nacimiento" name="fechaNacimiento" ngModel autocomplete="on">
+                  </div>
 
                   <button type="submit" class="btn btn-primary btn-user btn-block">
-                    Iniciar sesión
+                    Regirtrarse
                   </button>
                 </form>
                 <hr>

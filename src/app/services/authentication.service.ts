@@ -15,8 +15,8 @@ export class AuthenticationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  register(user: User): Observable<Jwtres> {
-    return this.httpClient.post<Jwtres>(this.apiUri + '/signup', user);
+  register(user: User): Observable<any> {
+    return this.httpClient.post(this.apiUri + '/signup', user);
   }
 
   login(user: User): Observable<Jwtres> {
