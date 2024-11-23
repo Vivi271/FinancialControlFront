@@ -55,4 +55,14 @@ export class UsuariosComponent {
       .subscribe(() => window.location.reload());
   }
 
+  newUsuarioEntry() {
+    this.usuariosService.newUsuario(this.usuariosForm.value).subscribe(
+      () => {
+        this.router.navigate(['/usuario']).then(() => {
+          this.newMessage('Registro exitoso');
+        })
+      }
+    );
+  }
+
 }

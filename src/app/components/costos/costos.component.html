@@ -1,4 +1,4 @@
-<div class="col-md-12"> 
+<div class="col-md-12">
     <div class="row">
         <!-- Menú lateral -->
         <div class="col-lg-4">
@@ -22,7 +22,13 @@
                         </div>
                     </div>
                 </div>
-
+                <!--CONTENIDO-->
+                <div class="">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Registrar costos
+                    </button>
+                </div>
                 <!-- INICIA TABLA -->
                 <div class="row justify-content-center">
                     <div class="col-md-10">
@@ -49,6 +55,53 @@
                     </div>
                 </div>
                 <!-- TERMINA TABLA -->
+                <!-- Modal New Animal-->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" 
+                     aria-hidden="true">
+                   <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Costo</h1>
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                               </div>
+                             <div class="modal-body">
+                                 <form class="card p-2" (ngSubmit)="newCostoEntry()"
+                                    [formGroup]="costosForm">
+                                   <div class="mb-3">
+                                         <label for="nombre" class="form-label">Nombre</label>
+                                         <input type="text" class="form-control" id="nombre"
+                                            aria-describedby="emailHelp" 
+                                            placeholder="Nombre del costo" formControlName="nombre">
+                                        </div>
+                                   <div class="mb-3">
+                                        <label for="descripcion" class="form-label">Descripción</label>
+                                       <input type="text" class="form-control" id="descripcion"
+                                            placeholder="descripcion" formControlName="descripcion">
+                                         </div>
+                                  <div class="mb-3">
+                                        <label for="monto" class="form-label">Monto</label>
+                                        <input type="number" class="form-control" id="monto"
+                                            placeholder="monto a registrar" formControlName="monto">
+                                         </div>
+                                     <div class="mb-3">
+                                         <label for="fecha de Pago" class="form-label">Fecha</label>
+                                         <input type="date" class="form-control" id="fecha"
+                                            placeholder="Fecha" formControlName="fechaPago">
+                                        </div>
+                                   <div class="input-group justify-content-center md-12">
+                                         <button type="submit" class="btn btn-primary"
+                                            data-bs-dismiss="modal">Guardar</button>
+                                       </div>
+                                   </form>
+                               </div>
+                           <div class="modal-footer">
+                               <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                       </div>
+                     </div>
             </div>
         </div>
     </div>
