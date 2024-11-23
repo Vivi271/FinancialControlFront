@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { IngresosService } from '../../services/ingresos.service';
+import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ingresos',
@@ -8,7 +12,19 @@ import { IngresosService } from '../../services/ingresos.service';
 })
 export class IngresosComponent {
   ingresosList: any = [];
-  constructor(private ingresosService: IngresosService) { }
+  ingresosForm: any = this.formBuilder.group({
+    nombre: '',
+    descripcion: '',
+    monto: '',
+    fecha: Date
+  })
+  editableIngresos: boolean = false;
+  idIngresos: any;
+
+  constructor(private ingresosService: IngresosService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.getAllIngresos();
@@ -18,6 +34,22 @@ export class IngresosComponent {
     this.ingresosService.getAllIngresosData().subscribe((data: {}) => {
       this.ingresosList = data;
     });
+  }
+
+  newMessages(messageText: string) {
+    this.toastr.success('Clic aquí para actualizar la lista', messageText)
+      .onTap
+      .pipe(take(1))
+      .subscribe(() => window.location.reload());
+  }
+  newIngresoEntry() {
+    this.ingresosService.newIngreso(localStorage.getItem('accessToken'), this.ingresosForm.value).subscribe(
+      () => {
+                this.router.navigate(['/ingresos']).then(() => {
+          this.newMessages('Registro exitoso');
+        })
+      }
+    );
   }
 
 

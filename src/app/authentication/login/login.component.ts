@@ -23,7 +23,7 @@ export class LoginComponent {
     this.authenticationService.login(form.value).subscribe(
       (res) => {
         localStorage.setItem('accessToken',JSON.parse(JSON.stringify(res)).accessToken);
-        this.router.navigateByUrl('/usuarios');
+        this.router.navigateByUrl('/usuario');
       }
     );
   }

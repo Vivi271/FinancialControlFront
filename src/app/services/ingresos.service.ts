@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class IngresosService {
   apiUri = '/api/ingresos'; // Cambiar la URI a la de ingresos
+  httpOptions = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
 
@@ -23,8 +24,11 @@ export class IngresosService {
   }
 
   newIngreso(data: any): Observable<any> {
-    return this.http.post<any>(this.apiUri, data);
-  }
+    return this.http.post<any>(
+      this.apiUri,
+      data,
+      {headers: this.httpOptions});
+}
 
   updateIngreso(id: any, data: any): Observable<any> {
     console.log(data);
