@@ -23,5 +23,10 @@ export class CostosComponent {
     });
   }
 
-
+  deleteCostoEntry(id: any) {
+    console.log(`Eliminando Costo con ID: ${id}`); // Se agrega un comentario indicando que se va a eliminar el Costo
+    this.costosService.deleteCosto(id).subscribe(() => {
+      console.log(`Costo con ID: ${id} eliminado exitosamente.`); // Confirmación de eliminación exitosa
+    });
+  }
 }
