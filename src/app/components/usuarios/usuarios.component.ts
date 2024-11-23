@@ -1,65 +1,55 @@
-import { FormBuilder } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from '../../services/usuarios.service';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
-  styleUrl: './usuarios.component.css'
+  styleUrls: ['./usuarios.component.css'] // Corrección: styleUrls en plural
 })
-export class UsuariosComponent {
-  usuariosList: any = [];
-  usuariosForm: any = this.formBuilder.group({
-    nombre: '',
-    cedula: '',
-    correo: '',
-    clave: '',
-    claveConfirmacion: '',
-    telefono: '',
-    fechaNacimiento: Date
-  })
+export class UsuariosComponent implements OnInit {
+  usuariosList: any[] = []; // Mejor tipado de datos
+  usuariosForm: FormGroup; // Uso de FormGroup para formularios reactivos
   editableIngresos: boolean = false;
   idIngresos: any;
-  constructor(private usuariosService: UsuariosService,
-    private formBuilder: FormBuilder,
+
+  constructor(
+    private usuariosService: UsuariosService,
+    private formBuilder: FormBuilder, // Corrección: renombrar "fromBuilder" a "formBuilder"
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService
+  ) {
+    // Inicialización del formulario en el constructor
+    this.usuariosForm = this.formBuilder.group({
+      nombre: ['', [Validators.required]],
+      cedula: ['', [Validators.required]],
+      correo: ['', [Validators.required, Validators.email]],
+      clave: ['', [Validators.required, Validators.minLength(6)]],
+      claveConfirmacion: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      fechaNacimiento: [null, [Validators.required]],
+    });
+  }
 
   ngOnInit() {
     this.getAllUsuarios();
   }
 
-
+  // Método para obtener todos los usuarios
   getAllUsuarios() {
-    this.usuariosService.getAllUsuariosData().subscribe((data: {}) => {
+    this.usuariosService.getAllUsuariosData().subscribe((data: any) => {
       this.usuariosList = data;
     });
   }
+
+  // Método para mostrar mensajes con Toastr
   newMessages(messageText: string) {
-    this.toastr.success('Clic aquí para actualizar la lista', messageText)
-      .onTap
-      .pipe(take(1))
+    this.toastr
+      .success('Clic aquí para actualizar la lista', messageText)
+      .onTap.pipe(take(1))
       .subscribe(() => window.location.reload());
   }
-  newUsuarioEntry() {
-    this.usuariosService.newUsuario(localStorage.getItem('accessToken'), this.usuariosForm.value).subscribe(
-      () => {
-        //Redirigiendo a la ruta actual /animal y recargando la ventana
-        this.router.navigate(['/usuarios']).then(() => {
-          this.newMessages('Registro exitoso');
-        })
-      }
-    );
-  }
-
-  deleteUsuarioEntry(id: any) {
-    console.log(`Eliminando usuario con ID: ${id}`); // Se agrega un comentario indicando que se va a eliminar el usuario
-    this.usuariosService.deleteUsuario(id).subscribe(() => {
-      console.log(`Usuario con ID: ${id} eliminado exitosamente.`); // Confirmación de eliminación exitosa
-    });
-  }
-  
-
 }
