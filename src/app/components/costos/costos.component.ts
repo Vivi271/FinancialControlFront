@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./costos.component.css']
 })
 export class CostosComponent {
-  
+
   costosList: any = [];
   costosForm!: FormGroup;
   editableCosto: boolean = false;
@@ -59,4 +59,19 @@ export class CostosComponent {
       }
     );
   }
+
+  updateAnimalEntry() {
+        for (let key in this.costosForm.value) {
+      if (this.costosForm.value[key] === '') {
+        this.costosForm.removeControl(key);
+      }
+    }
+    this.costosService.updateCosto(this.idCosto, this.costosForm.value).subscribe(
+      () => {
+        //Enviando mensaje de confirmación
+        this.newMessage("costo editado");
+      }
+    );
+  }
+
 }

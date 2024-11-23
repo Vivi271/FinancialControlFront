@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -36,4 +37,12 @@ export class CostosService {
   deleteCosto(id: any) {
     return this.http.delete<any>(this.apiUri + '/' + id);
   }
+
+  getOneAnimal(id: any): Observable<any> {
+    return this.http.get<any>(
+      this.apiUri + '/' + id,
+      { headers: this.httpOptions });
+  }
+
+
 }
