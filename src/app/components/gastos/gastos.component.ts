@@ -23,5 +23,11 @@ export class GastosComponent {
     });
   }
 
+  deleteGastoEntry(id: any) {
+    console.log(`Eliminando Gasto con ID: ${id}`); // Se agrega un comentario indicando que se va a eliminar el Gasto
+    this.gastosService.deleteGasto(id).subscribe(() => {
+      console.log(`Gasto con ID: ${id} eliminado exitosamente.`); // Confirmación de eliminación exitosa
+    });
+  }
 
 }

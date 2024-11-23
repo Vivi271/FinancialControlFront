@@ -36,4 +36,5 @@ export class CostosService {
   deleteCosto(id: any) {
     return this.http.delete<any>(this.apiUri + '/' + id);
   }
+
 }

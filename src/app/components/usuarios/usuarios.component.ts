@@ -54,5 +54,12 @@ export class UsuariosComponent {
     );
   }
 
+  deleteUsuarioEntry(id: any) {
+    console.log(`Eliminando usuario con ID: ${id}`); // Se agrega un comentario indicando que se va a eliminar el usuario
+    this.usuariosService.deleteUsuario(id).subscribe(() => {
+      console.log(`Usuario con ID: ${id} eliminado exitosamente.`); // Confirmación de eliminación exitosa
+    });
+  }
+  
 
 }
