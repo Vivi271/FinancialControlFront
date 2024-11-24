@@ -26,12 +26,23 @@ export class UsuariosService {
     return this.http.post<any>(this.apiUri, data);
   }
 
-  updateUsuario(id: any, data: any): Observable<any> {
+  updateUsuario(token: any , id: any, data: any): Observable<any> {
     console.log(data);
-    return this.http.put<any>(this.apiUri + '/' + id, data);
+    return this.http.put<any>(
+      this.apiUri + '/' + id,
+      data,
+      { headers: {
+        'Content-Type': 'application/json',
+        accessToken: `${token}`
+      } });
   }
 
-  deleteUsuario(id: any) {
-    return this.http.delete<any>(this.apiUri + '/' + id);
+  deleteUsuario(token: any, id: any) {
+    return this.http.delete<any>(
+      this.apiUri + "/" + id,
+      { headers: {
+        'Content-Type': 'application/json',
+        accessToken: `${token}`
+      } })
   }
 }

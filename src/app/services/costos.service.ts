@@ -55,5 +55,5 @@ export class CostosService {
         'Content-Type': 'application/json',
         accessToken: `${token}`
       } })
-}
+  }
 }

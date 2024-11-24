@@ -1,59 +1,170 @@
-<div class="row">
-    <!-- Menú lateral -->
-    <div class="col-lg-2">
+<div class="col-md-12">
+    <div class="row">
+      <!-- Menú lateral -->
+      <div class="col-lg-4">
         <app-menu></app-menu>
-    </div>
-
-    <!-- Contenido principal -->
-    <div class="col-lg-10">
+      </div>
+  
+      <!-- Contenido principal -->
+      <div class="col-lg-8">
         <div class="container-fluid mt-4">
-            <div class="row">
-                <nav aria-label="breadcrumb" class="col-md-12">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
-                    </ol>
-                </nav>
-
-                <div class="col-md-12 text-center">
-                    <div class="page-header">
-                        <h1><small>Usuarios</small></h1>
-                    </div>
-                </div>
+          <div class="row">
+            <nav aria-label="breadcrumb" class="col-md-12">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
+              </ol>
+            </nav>
+  
+            <div class="col-md-12 text-center">
+              <div class="page-header">
+                <h1><small>Usuarios</small></h1>
+              </div>
             </div>
-
-            <!-- INICIA TABLA -->
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <div class="table-responsive" style="overflow-x: auto;">
-                        <table class="table table-striped table-bordered table-hover table-sm">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Cédula</th>
-                                    <th scope="col">Correo</th>
-                                    <th scope="col">Clave</th>
-                                    <th scope="col">Confirmar Clave</th>
-                                    <th scope="col">Teléfono</th>
-                                    <th scope="col">Fecha de Nacimiento</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of usuariosList">
-                                    <td>{{item.nombre}}</td>
-                                    <td>{{item.cedula}}</td>
-                                    <td>{{item.correo}}</td>
-                                    <td>{{item.clave}}</td>
-                                    <td>{{item.claveConfirmacion}}</td>
-                                    <td>{{item.telefono}}</td>
-                                    <td>{{item.fechaNacimiento}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+          </div>
+  
+          <!-- CONTENIDO -->
+          <div class="">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Registrar Usuarios
+            </button>
+          </div>
+  
+          <!-- INICIA TABLA -->
+          <div class="row justify-content-center">
+            <div class="col-md-10">
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-sm">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Cédula</th>
+                      <th scope="col">Correo</th>
+                      <th scope="col">Clave</th>
+                      <th scope="col">Clave Confirmación</th>
+                      <th scope="col">Teléfono</th>
+                      <th scope="col">Fecha Nacimiento</th>
+                      <th scope="col">Eliminar Usuario</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of usuariosList">
+                      <td>{{item.nombre}}</td>
+                      <td>{{item.cedula}}</td>
+                      <td>{{item.correo}}</td>
+                      <td>{{item.clave}}</td>
+                      <td>{{item.claveConfirmacion}}</td>
+                      <td>{{item.telefono}}</td>
+                      <td>{{item.fechaNacimiento}}</td>
+                      <td>
+                        <button type="button" class="btn btn-primary" (click)="deleteUsuarioEntry(item._id)">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      <td><button type="button" class="btn btn-primary" (click)="toggleEditUsuario(item._id)">
+                          <i class="bi bi-pencil-square"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <!-- TERMINA TABLA -->
+          </div>
+          <!-- TERMINA TABLA -->
+          <form *ngIf="editableUsuario" class="card p-2" (ngSubmit)="updateUsuarioEntry()" [formGroup]="usuariosForm">
+            <div class="mb-3">
+              <label for="Nombre" class="form-label">nombre</label>
+              <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp" 
+                placeholder="Nombre del Usuario" formControlName="nombre">
+            </div>
+            <div class="mb-3">
+              <label for="Cédula" class="form-label">descripcion</label>
+              <input type="number" class="form-control" id="cedula" placeholder="cedula" formControlName="cedula">
+            </div>
+            <div class="mb-3">
+              <label for="Correo" class="form-label">Correo</label>
+              <input type="text" class="form-control" id="correo" placeholder="correo" formControlName="correo">
+            </div>
+            <div class="mb-3">
+                <label for="Clave" class="form-label">Clave</label>
+                <input type="text" class="form-control" id="clave" placeholder="clave" formControlName="clave">
+              </div>
+              <div class="mb-3">
+                <label for="Clave Confirmación" class="form-label">Clave Confirmación</label>
+                <input type="text" class="form-control" id="claveConfirmacion" placeholder="claveConfirmacion" formControlName="claveConfirmacion">
+              </div>
+              <div class="mb-3">
+                <label for="Teléfono" class="form-label">Teléfono</label>
+                <input type="number" class="form-control" id="telefono" placeholder="telefono" formControlName="telefono">
+              </div>
+            <div class="mb-3">
+              <label for="Fecha Nacimiento" class="form-label">Fecha Nacimiento</label>
+              <input type="date" class="form-control" id="fechaNacimiento" placeholder="fechaNacimiento" formControlName="fechaNacimiento">
+            </div>
+            <div class="input-group justify-content-center md-12">
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+            </div>
+          </form>
+  
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Usuario</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="card p-2" (ngSubmit)="newUsuarioEntry()" [formGroup]="usuariosForm">
+                    <div class="mb-3">
+                      <label for="Nombre" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" id="nombre" placeholder="Nombre del Usuario"
+                        formControlName="nombre">
+                    </div>
+                    <div class="mb-3">
+                      <label for="cedula" class="form-label">Cédula</label>
+                      <input type="number" class="form-control" id="cedula" placeholder="cedula"
+                        formControlName="cedula">
+                    </div>
+                    <div class="mb-3">
+                      <label for="correo" class="form-label">Correo</label>
+                      <input type="number" class="form-control" id="correo" placeholder="correo"
+                        formControlName="correo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="clave" class="form-label">Clave</label>
+                        <input type="text" class="form-control" id="clave" placeholder="clave"
+                          formControlName="clave">
+                      </div>
+                      <div class="mb-3">
+                        <label for="claveConfirmacion" class="form-label">Clave Confirmación</label>
+                        <input type="text" class="form-control" id="claveConfirmacion" placeholder="claveConfirmacion"
+                          formControlName="claveConfirmacion">
+                      </div>
+                      <div class="mb-3">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="number" class="form-control" id="telefono" placeholder="telefono"
+                          formControlName="telefono">
+                      </div>
+                    <div class="mb-3">
+                      <label for="fechaNacimiento" class="form-label">Fecha Nacimiento</label>
+                      <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento">
+                    </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary" [disabled]="usuariosForm.invalid">Guardar</button>
+                    </div>
+  
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
         </div>
-    </div>
-</div>
+      </div>
+  </div>
+  </div>
