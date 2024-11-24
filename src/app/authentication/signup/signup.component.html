@@ -1,8 +1,15 @@
-
-<div class="container">
+<div class="container" 
+     style="background-image: url('https://inesdi-cdn.s3.eu-west-3.amazonaws.com/inesdi-prod/2023-06/controller-finanicero-1_0.jpeg'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;">
 
   <!-- Outer Row -->
-  <div class="row justify-content-center">
+  <div class="row justify-content-center" style="width: 100%;">
 
     <div class="col-xl-10 col-lg-12 col-md-9">
 
@@ -19,15 +26,15 @@
                 <form class="user" (ngSubmit)="onRegister(formLogin)" #formLogin="ngForm">
                   <div class="form-group">
                     <input type="text" class="form-control form-control-user" id="exampleInputUser"
-                      aria-describedby="emailHelp" placeholder="Nombre"  name="nombre" ngModel>
+                      aria-describedby="emailHelp" placeholder="Nombre" name="nombre" ngModel>
                   </div>
                   <div class="form-group">
                     <input type="number" class="form-control form-control-user" id="exampleInputEmail"
-                      aria-describedby="emailHelp" placeholder="Cedula"  name="cedula" ngModel>
+                      aria-describedby="emailHelp" placeholder="Cédula" name="cedula" ngModel>
                   </div>
                   <div class="form-group">
                     <input type="email" class="form-control form-control-user" id="exampleInputPassword"
-                      placeholder="Correo electronico" name="correo" ngModel autocomplete="on">
+                      placeholder="Correo electrónico" name="correo" ngModel autocomplete="on">
                   </div>
                   <div class="form-group">
                     <input type="password" class="form-control form-control-user" id="exampleInputPassword"
@@ -39,7 +46,7 @@
                   </div>
                   <div class="form-group">
                     <input type="number" class="form-control form-control-user" id="exampleInputPassword"
-                      placeholder="Telefono" name="telefono" ngModel autocomplete="on">
+                      placeholder="Teléfono" name="telefono" ngModel autocomplete="on">
                   </div>
                   <div class="form-group">
                     <input type="date" class="form-control form-control-user" id="exampleInputPassword"
@@ -47,11 +54,10 @@
                   </div>
 
                   <button type="submit" class="btn btn-primary btn-user btn-block">
-                    Regirtrarse
+                    Registrarse
                   </button>
                 </form>
                 <hr>
-
               </div>
             </div>
           </div>

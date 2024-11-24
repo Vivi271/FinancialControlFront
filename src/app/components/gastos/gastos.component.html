@@ -1,104 +1,119 @@
-<div class="col-md-12">
+<div class="row" 
+     style="background-image: url('https://img.freepik.com/vector-gratis/concepto-mercado-valores-isometrico_23-2149149924.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            min-height: 100vh;">
+  
+  <div class="col-md-10">
     <div class="row">
       <!-- Menú lateral -->
-      <div class="col-lg-4">
+      <div class="col-lg-2">
         <app-menu></app-menu>
       </div>
-  
+
       <!-- Contenido principal -->
-      <div class="col-lg-8">
+      <div class="col-lg-10">
         <div class="container-fluid mt-4">
           <div class="row">
             <nav aria-label="breadcrumb" class="col-md-12">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Gastos</li>
+                <li class="breadcrumb-item"><a href="/" style="font-size: 1.2em;">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page" style="font-size: 1.2em;">Gastos</li>
               </ol>
             </nav>
-  
+
+            <!-- Imagen -->
             <div class="col-md-12 text-center">
               <div class="page-header">
-                <h1><small>Gastos</small></h1>
+                <h1 style="font-size: 3em;"><small>Gastos</small></h1>
               </div>
             </div>
           </div>
-  
-          <!-- CONTENIDO -->
-          <div class="">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+          <!-- Botón Registrar Gastos -->
+          <div class="text-center mb-4">
+            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Registrar Gastos
             </button>
           </div>
-  
+
           <!-- INICIA TABLA -->
           <div class="row justify-content-center">
             <div class="col-md-10">
-              <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-sm">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Descripción</th>
-                      <th scope="col">Monto</th>
-                      <th scope="col">Fecha De Gasto</th>
-                      <th scope="col">Eliminar gasto</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of gastosList">
-                      <td>{{item.nombre}}</td>
-                      <td>{{item.descripcion}}</td>
-                      <td>{{item.monto}}</td>
-                      <td>{{item.fechaGasto}}</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" (click)="deleteGastoEntry(item._id)">
-                          <i class="bi bi-trash"></i>
-                        </button>
-                      <td><button type="button" class="btn btn-primary" (click)="toggleEditGasto(item._id)">
-                          <i class="bi bi-pencil-square"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="table-responsive d-flex justify-content-center">
+                <div class="table-container" 
+                     style="background-color: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 10px; width: 100%;">
+                  <table class="table table-striped table-bordered table-hover table-lg" 
+                         style="font-size: 1.2em; color: #000; max-width: 1000px;">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Fecha De Gasto</th>
+                        <th scope="col">Eliminar gasto</th>
+                        <th scope="col">Editar gasto</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of gastosList">
+                        <td>{{item.nombre}}</td>
+                        <td>{{item.descripcion}}</td>
+                        <td>{{item.monto}}</td>
+                        <td>{{item.fechaGasto}}</td>
+                        <td>
+                          <button type="button" class="btn btn-primary btn-lg" (click)="deleteGastoEntry(item._id)">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-primary btn-lg" (click)="toggleEditGasto(item._id)">
+                            <i class="bi bi-pencil-square"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
           <!-- TERMINA TABLA -->
-          <form *ngIf="editableGastos" class="card p-2" (ngSubmit)="updateGastoEntry()" [formGroup]="gastosForm">
+
+          <!-- Formulario de edición -->
+          <form *ngIf="editableGastos" class="card p-3" (ngSubmit)="updateGastoEntry()" [formGroup]="gastosForm">
             <div class="mb-3">
-              <label for="nombre" class="form-label">nombre</label>
-              <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp" 
-                placeholder="Nombre del Gasto" formControlName="nombre">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" placeholder="Nombre del Gasto" formControlName="nombre">
             </div>
             <div class="mb-3">
-              <label for="descripcion" class="form-label">descripcion</label>
+              <label for="descripcion" class="form-label">Descripción</label>
               <input type="text" class="form-control" id="descripcion" placeholder="Descripción" formControlName="descripcion">
             </div>
             <div class="mb-3">
-              <label for="monto" class="form-label">monto</label>
+              <label for="monto" class="form-label">Monto</label>
               <input type="number" class="form-control" id="monto" placeholder="Monto del Gasto" formControlName="monto">
             </div>
             <div class="mb-3">
-              <label for="fecha" class="form-label">fechaPago</label>
-              <input type="date" class="form-control" id="fecha" placeholder="Fecha" formControlName="fecha">
+              <label for="fecha" class="form-label">Fecha de Gasto</label>
+              <input type="date" class="form-control" id="fecha" formControlName="fecha">
             </div>
             <div class="input-group justify-content-center md-12">
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+              <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
             </div>
           </form>
-  
+
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Gastos</h1>
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Gasto</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form class="card p-2" (ngSubmit)="newGastoEntry()" [formGroup]="gastosForm">
+                  <form class="card p-3" (ngSubmit)="newGastoEntry()" [formGroup]="gastosForm">
                     <div class="mb-3">
                       <label for="nombre" class="form-label">Nombre</label>
                       <input type="text" class="form-control" id="nombre" placeholder="Nombre del Gasto"
@@ -119,9 +134,8 @@
                       <input type="date" class="form-control" id="fechaPago" formControlName="fechaPago">
                     </div>
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary" [disabled]="gastosForm.invalid">Guardar</button>
+                      <button type="submit" class="btn btn-primary btn-lg" [disabled]="gastosForm.invalid">Guardar</button>
                     </div>
-  
                   </form>
                 </div>
                 <div class="modal-footer">
@@ -130,8 +144,8 @@
               </div>
             </div>
           </div>
-  
         </div>
       </div>
-  </div>
-  </div>
+    </div>
+  </div>
+</div>

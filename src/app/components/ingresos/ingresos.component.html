@@ -1,137 +1,139 @@
-<div class="col-md-12">
-    <div class="row">
-      <!-- Menú lateral -->
-      <div class="col-lg-4">
+<div class="row" 
+     style="background-image: url('https://img.freepik.com/vector-premium/analisis-financiero_92926-121.jpg?semt=ais_hybrid'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            min-height: 100vh;">
+
+    <!-- Menú lateral -->
+    <div class="col-lg-2" style="background-color: transparent; color: #fff;">
         <app-menu></app-menu>
-      </div>
-  
-      <!-- Contenido principal -->
-      <div class="col-lg-8">
-        <div class="container-fluid mt-4">
-          <div class="row">
-            <nav aria-label="breadcrumb" class="col-md-12">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Ingresos</li>
-              </ol>
-            </nav>
-  
-            <div class="col-md-12 text-center">
-              <div class="page-header">
-                <h1><small>Ingresos</small></h1>
-              </div>
-            </div>
-          </div>
-  
-          <!-- CONTENIDO -->
-          <div class="">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Registrar ingresos
-            </button>
-          </div>
-  
-          <!-- INICIA TABLA -->
-          <div class="row justify-content-center">
-            <div class="col-md-10">
-              <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-sm">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Descripción</th>
-                      <th scope="col">Monto</th>
-                      <th scope="col">Fecha De Pago</th>
-                      <th scope="col">Eliminar ingreso</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of ingresosList">
-                      <td>{{item.nombre}}</td>
-                      <td>{{item.descripcion}}</td>
-                      <td>{{item.monto}}</td>
-                      <td>{{item.fecha}}</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" (click)="deleteIngresoEntry(item._id)">
-                          <i class="bi bi-trash"></i>
-                        </button>
-                      <td><button type="button" class="btn btn-primary" (click)="toggleEditIngreso(item._id)">
-                          <i class="bi bi-pencil-square"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- TERMINA TABLA -->
-          <form *ngIf="editableIngreso" class="card p-2" (ngSubmit)="updateIngresoEntry()" [formGroup]="ingresosForm">
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp" 
-                placeholder="Nombre del ingreso" formControlName="nombre">
-            </div>
-            <div class="mb-3">
-              <label for="descripcion" class="form-label">Descripción</label>
-              <input type="text" class="form-control" id="descripcion" placeholder="Descripción" formControlName="descripcion">
-            </div>
-            <div class="mb-3">
-              <label for="monto" class="form-label">Monto</label>
-              <input type="number" class="form-control" id="monto" placeholder="Monto del ingreso" formControlName="monto">
-            </div>
-            <div class="mb-3">
-              <label for="fecha" class="form-label">Fecha de Pago</label>
-              <input type="date" class="form-control" id="fecha" placeholder="Fecha" formControlName="fecha">
-            </div>
-            <div class="input-group justify-content-center md-12">
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
-            </div>
-          </form>
-  
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Ingreso</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="col-lg-8">
+        <div class="container-fluid mt-0" style="background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; padding: 20px; color: #000;">
+            <div class="row">
+                <nav aria-label="breadcrumb" class="col-md-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/" style="color: #007bff;">Inicio</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Ingresos</li>
+                    </ol>
+                </nav>
+
+                <div class="col-md-12 text-center">
+                    <div class="page-header">
+                        <h1><small>Ingresos</small></h1>
+                    </div>
                 </div>
-                <div class="modal-body">
-                  <form class="card p-2" (ngSubmit)="newIngresoEntry()" [formGroup]="ingresosForm">
-                    <div class="mb-3">
-                      <label for="nombre" class="form-label">Nombre</label>
-                      <input type="text" class="form-control" id="nombre" placeholder="Nombre del ingreso"
-                        formControlName="nombre">
-                    </div>
-                    <div class="mb-3">
-                      <label for="descripcion" class="form-label">Descripción</label>
-                      <input type="text" class="form-control" id="descripcion" placeholder="Descripción"
-                        formControlName="descripcion">
-                    </div>
-                    <div class="mb-3">
-                      <label for="monto" class="form-label">Monto</label>
-                      <input type="number" class="form-control" id="monto" placeholder="Monto a registrar"
-                        formControlName="monto">
-                    </div>
-                    <div class="mb-3">
-                      <label for="fecha" class="form-label">Fecha</label>
-                      <input type="date" class="form-control" id="fecha" formControlName="fecha">
-                    </div>
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary" [disabled]="ingresosForm.invalid">Guardar</button>
-                    </div>
-  
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-              </div>
             </div>
-          </div>
-  
+
+            <!-- Botón para registrar ingresos -->
+            <div class="mb-4">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Registrar ingresos
+                </button>
+            </div>
+
+            <!-- INICIA TABLA -->
+            <div class="row" style="margin-left: 0; padding-left: 0;">
+                <div class="col-md-12" style="padding-left: 0;">
+                    <div class="table-responsive" style="overflow-x: auto; margin-top: 0;">
+                        <table class="table table-striped table-bordered table-hover table-sm" style="color: #000;">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Monto</th>
+                                    <th scope="col">Fecha De Pago</th>
+                                    <th scope="col">Eliminar ingreso</th>
+                                    <th scope="col">Editar ingreso</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of ingresosList">
+                                    <td>{{item.nombre}}</td>
+                                    <td>{{item.descripcion}}</td>
+                                    <td>{{item.monto}}</td>
+                                    <td>{{item.fecha}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" (click)="deleteIngresoEntry(item._id)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" (click)="toggleEditIngreso(item._id)">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- TERMINA TABLA -->
+
+            <!-- Formulario de edición -->
+            <form *ngIf="editableIngreso" class="card p-2" (ngSubmit)="updateIngresoEntry()" [formGroup]="ingresosForm">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Nombre del ingreso" formControlName="nombre">
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" id="descripcion" placeholder="Descripción" formControlName="descripcion">
+                </div>
+                <div class="mb-3">
+                    <label for="monto" class="form-label">Monto</label>
+                    <input type="number" class="form-control" id="monto" placeholder="Monto del ingreso" formControlName="monto">
+                </div>
+                <div class="mb-3">
+                    <label for="fecha" class="form-label">Fecha de Pago</label>
+                    <input type="date" class="form-control" id="fecha" formControlName="fecha">
+                </div>
+                <div class="input-group justify-content-center md-12">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+
+            <!-- Modal para nuevo ingreso -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Ingreso</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="card p-2" (ngSubmit)="newIngresoEntry()" [formGroup]="ingresosForm">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre" placeholder="Nombre del ingreso" formControlName="nombre">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion" class="form-label">Descripción</label>
+                                    <input type="text" class="form-control" id="descripcion" placeholder="Descripción" formControlName="descripcion">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="monto" class="form-label">Monto</label>
+                                    <input type="number" class="form-control" id="monto" placeholder="Monto a registrar" formControlName="monto">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fecha" class="form-label">Fecha</label>
+                                    <input type="date" class="form-control" id="fecha" formControlName="fecha">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary" [disabled]="ingresosForm.invalid">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-  </div>
-  </div>
+    </div>
+</div>
