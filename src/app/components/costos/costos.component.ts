@@ -56,7 +56,6 @@ export class CostosComponent {
 
   newCostoEntry() {
     this.costosForm.value['usuarioId'] = this.idUsuario
-    console.log(this.costosForm.value['usuarioId'])
     this.costosService.newCosto(this.costosForm.value, localStorage.getItem('accessToken')).subscribe(
       () => {
         this.router.navigate(['/costos']).then(() => {

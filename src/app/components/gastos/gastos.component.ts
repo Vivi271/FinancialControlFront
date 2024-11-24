@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { formatDate } from '@angular/common';
+
 
 @Component({
   selector: 'app-gastos',
@@ -18,6 +20,7 @@ export class GastosComponent {
   editableGastos: boolean = false;
   idGasto: any;
   isLoading = false; // Indicador de carga
+  idUsuario: any;
 
   constructor(private gastosService: GastosService,
     private formBuilder: FormBuilder,
@@ -37,6 +40,7 @@ export class GastosComponent {
   }
 
   ngOnInit() {
+    this.idUsuario = localStorage.getItem('id');
     this.getAllGastos();
   }
 
@@ -48,7 +52,8 @@ export class GastosComponent {
   }
 
   newGastoEntry() {
-    this.gastosService.newGasto(this.gastosForm.value).subscribe(
+    this.gastosForm.value['usuarioId'] = this.idUsuario
+    this.gastosService.newGasto(this.gastosForm.value, localStorage.getItem('accessToken')).subscribe(
       () => {
         this.router.navigate(['/gastos']).then(() => {
           this.newMessage('Registro exitoso');
@@ -56,4 +61,76 @@ export class GastosComponent {
       }
     );
   }
+  updateGastoEntry() {
+    for (let key in this.gastosForm.value) {
+      if (this.gastosForm.value[key] === '') {
+        this.gastosForm.removeControl(key);
+      }
+    }
+    this.gastosService.updateGasto(localStorage.getItem('accessToken'), this.idGasto, this.gastosForm.value).subscribe(
+      () => {
+        //Enviando mensaje de confirmación
+        this.newMessage("gasto editado");
+      }
+    );
+  }
+  getValidDate(fecha: Date) {
+    const fechaFinal: Date = new Date(fecha);
+    //separado los datos
+    var dd = fechaFinal.getDate() + 1;//fue necesario porque siempre daba un día antes
+    var mm = fechaFinal.getMonth() + 1; //porque Enero es 0
+    var yyyy = fechaFinal.getFullYear();
+    var mes = '';
+    var dia = '';
+    //Como algunos meses tienen 31 días dd puede dar 32
+    if (dd == 32) {
+      dd = 1;
+      mm++;
+    }
+    //Transformación de fecha cuando el día o mes son menores a 10
+    //se le coloca un cero al inicio
+    //Día
+    if (dd < 10) {
+      dia += `0${dd}`;
+    } else {
+      dia += `${dd}`;
+    }
+    //Mes
+    if (mm < 10) {
+      mes += `0${mm}`;
+    } else {
+      mes += `${mm}`;
+    }
+    //formatDate para colocar la fecha en un formato aceptado por el calendario
+    //GMT-0500 es para Colombia
+    var finalDate = formatDate(new Date(yyyy + '-' + mes + '-' + dia + ' GMT-0500'), 'yyyy-MM-dd', "en-US");
+    return finalDate;
+  }
+
+  toggleEditGasto(id: any) {
+    this.idGasto = id;
+    console.log(this.idGasto)
+    this.gastosService.getOneGasto(id).subscribe(
+      data => {
+        this.gastosForm.setValue({
+          nombre: data.nombre,
+          edad: data.edad,
+          tipo: data.tipo,
+          fecha: this.getValidDate(data.fecha)
+        });
+      }
+    );
+    this.editableGastos = !this.editableGastos;
+  }
+
+  deleteGastoEntry(id: any) {
+    this.idGasto = id;
+    this.gastosService.deleteGasto(localStorage.getItem('accessToken'), this.idGasto).subscribe(
+      () => {
+        //Enviando mensaje de confirmación
+        this.newMessage("gasto eliminado");
+      }
+    );
+  }
+
 }

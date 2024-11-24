@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class GastosService {
   apiUri = '/api/gastos'; // Cambiar la URI a la de gastos
+  httpOptions = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
 
@@ -22,17 +23,35 @@ export class GastosService {
     return this.http.get<any>(this.apiUri + '/' + id);
   }
 
-  newGasto(data: any): Observable<any> {
-    return this.http.post<any>(this.apiUri, data);
-  }
+  newGasto(data: any, token: any): Observable<any> {
+    return this.http.post<any>(
+      this.apiUri,
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          accessToken: `${token}`
+        }
+      });
+    }
 
-  updateGasto(id: any, data: any): Observable<any> {
+  updateGasto(token: any , id: any, data: any): Observable<any> {
     console.log(data);
-    return this.http.put<any>(this.apiUri + '/' + id, data);
-  }
-
-  deleteGasto(id: any) {
-    return this.http.delete<any>(this.apiUri + '/' + id);
-  }
-  httpOptions = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.put<any>(
+      this.apiUri + '/' + id,
+      data,
+      { headers: {
+        'Content-Type': 'application/json',
+        accessToken: `${token}`
+      } });
+    }
+  deleteGasto(token: any, id: any) {
+    return this.http.delete<any>(
+      this.apiUri + "/" + id,
+      { headers: {
+        'Content-Type': 'application/json',
+        accessToken: `${token}`
+      } })
+}
+  
 }
