@@ -37,7 +37,7 @@ export class CostosService {
       });
     }
 
-  updateCosto(token: any ,id: any, data: any): Observable<any> {
+  updateCosto(token: any , id: any, data: any): Observable<any> {
     console.log(data);
     return this.http.put<any>(
       this.apiUri + '/' + id,
@@ -48,15 +48,12 @@ export class CostosService {
       } });
   }
 
-  deleteCosto(id: any) {
-    return this.http.delete<any>(this.apiUri + '/' + id);
-  }
-
-  getOneAnimal(id: any): Observable<any> {
-    return this.http.get<any>(
-      this.apiUri + '/' + id,
-      { headers: this.httpOptions });
-  }
-
-
+  deleteCosto(token: any, id: any) {
+    return this.http.delete<any>(
+      this.apiUri + "/" + id,
+      { headers: {
+        'Content-Type': 'application/json',
+        accessToken: `${token}`
+      } })
+}
 }

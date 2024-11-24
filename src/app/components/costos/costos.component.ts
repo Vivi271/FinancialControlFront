@@ -32,7 +32,7 @@ export class CostosComponent {
       descripcion: ['', Validators.maxLength(200)],
       monto: [0, [Validators.required, Validators.min(0)]],
       fechaPago: [new Date().toISOString(), Validators.required],
-      usuarioId:[ ]
+      usuarioId: []
     });
   }
 
@@ -66,13 +66,13 @@ export class CostosComponent {
     );
   }
 
-  updateAnimalEntry() {
+  updateCostoEntry() {
     for (let key in this.costosForm.value) {
       if (this.costosForm.value[key] === '') {
         this.costosForm.removeControl(key);
       }
     }
-    this.costosService.updateCosto(localStorage.getItem('accessToken'),this.idCosto, this.costosForm.value).subscribe(
+    this.costosService.updateCosto(localStorage.getItem('accessToken'), this.idCosto, this.costosForm.value).subscribe(
       () => {
         //Enviando mensaje de confirmación
         this.newMessage("costo editado");
@@ -111,5 +111,32 @@ export class CostosComponent {
     var finalDate = formatDate(new Date(yyyy + '-' + mes + '-' + dia + ' GMT-0500'), 'yyyy-MM-dd', "en-US");
     return finalDate;
   }
+
+  toggleEditCosto(id: any) {
+    this.idCosto = id;
+    console.log(this.idCosto)
+    this.costosService.getOneCosto(id).subscribe(
+      data => {
+        this.costosForm.setValue({
+          nombre: data.nombre,
+          edad: data.edad,
+          tipo: data.tipo,
+          fecha: this.getValidDate(data.fecha)
+        });
+      }
+    );
+    this.editableCosto = !this.editableCosto;
+  }
+
+  deleteCostoEntry(id: any) {
+    this.idCosto = id;
+    this.costosService.deleteCosto(localStorage.getItem('accessToken'), this.idCosto).subscribe(
+      () => {
+        //Enviando mensaje de confirmación
+        this.newMessage("costo eliminado");
+      }
+    );
+  }
+
 
 }
