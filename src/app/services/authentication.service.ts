@@ -25,7 +25,8 @@ export class AuthenticationService {
         if (res) {
           {
             //console.log(JSON.parse(JSON.stringify(res)).accessToken)
-            //ACCESS_TOKEN: JSON.parse(JSON.stringify(res)).accessToken
+           //id: JSON.parse(JSON.stringify(res)).id
+            //console.log (JSON.parse(JSON.stringify(res)).id)
           }
         } else {
           console.log('hubo un error')

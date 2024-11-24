@@ -24,7 +24,9 @@ export class LoginComponent {
     this.authenticationService.login(form.value).subscribe(
       (res) => {
         localStorage.setItem('accessToken',JSON.parse(JSON.stringify(res)).accessToken);
+        localStorage.setItem('id',JSON.parse(JSON.stringify(res)).id);
         this.router.navigateByUrl('/usuarios');
+        
       }
     );
   }

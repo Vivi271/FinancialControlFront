@@ -25,13 +25,27 @@ export class CostosService {
     return this.http.get<any>(this.apiUri + '/' + id);
   }
 
-  newCosto(data: any): Observable<any> {
-    return this.http.post<any>(this.apiUri, data);
-  }
+  newCosto(data: any, token: any): Observable<any> {
+    return this.http.post<any>(
+      this.apiUri,
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          accessToken: `${token}`
+        }
+      });
+    }
 
-  updateCosto(id: any, data: any): Observable<any> {
+  updateCosto(token: any ,id: any, data: any): Observable<any> {
     console.log(data);
-    return this.http.put<any>(this.apiUri + '/' + id, data);
+    return this.http.put<any>(
+      this.apiUri + '/' + id,
+      data,
+      { headers: {
+        'Content-Type': 'application/json',
+        accessToken: `${token}`
+      } });
   }
 
   deleteCosto(id: any) {
