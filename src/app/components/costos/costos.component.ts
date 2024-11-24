@@ -72,7 +72,7 @@ export class CostosComponent {
         this.costosForm.removeControl(key);
       }
     }
-    this.costosService.updateCosto(this.idCosto, this.costosForm.value).subscribe(
+    this.costosService.updateCosto(localStorage.getItem('accessToken'),this.idCosto, this.costosForm.value).subscribe(
       () => {
         //Enviando mensaje de confirmación
         this.newMessage("costo editado");
