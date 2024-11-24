@@ -31,7 +31,7 @@ export class IngresosComponent {
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       descripcion: ['', Validators.maxLength(200)],
       monto: [0, [Validators.required, Validators.min(0)]],
-      fechaPago: [new Date().toISOString(), Validators.required],
+      fecha: [new Date().toISOString(), Validators.required],
       usuarioId: []
     });
   }
