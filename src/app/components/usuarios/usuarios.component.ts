@@ -37,7 +37,8 @@ export class UsuariosComponent {
     });
   }
 
-
+  obtenerTamanoArreglo() {     return this.usuariosList.length; }
+ 
 
   getAllUsuarios() {
     this.usuariosService.getAllUsuariosData().subscribe((data: {}) => {

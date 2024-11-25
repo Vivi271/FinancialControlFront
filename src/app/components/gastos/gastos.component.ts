@@ -33,6 +33,8 @@ export class GastosComponent {
     fechaGasto: [new Date().toISOString(), Validators.required]
   });}
 
+  obtenerTamanoArreglo() {     return this.gastosList.length; }
+
   getAllGastos() {
     this.gastosService.getAllGastosData().subscribe((data: {}) => {
       this.gastosList = data;

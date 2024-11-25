@@ -36,6 +36,9 @@ export class CostosComponent {
     });
   }
 
+  obtenerTamanoArreglo() {     return this.costosList.length; }
+
+
   getAllCostos() {
     this.costosService.getAllCostosData().subscribe((data: {}) => {
       this.costosList = data;

@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-
+            <p>Cantidad de usuarios registrados: {{ obtenerTamanoArreglo() }}</p>
             <!-- INICIA TABLA -->
             <div class="row justify-content-center">
                 <div class="col-md-12">
@@ -38,8 +38,6 @@
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Cédula</th>
                                     <th scope="col">Correo</th>
-                                    <th scope="col">Clave</th>
-                                    <th scope="col">Confirmar Clave</th>
                                     <th scope="col">Teléfono</th>
                                     <th scope="col">Fecha de Nacimiento</th>
                                 </tr>
@@ -49,8 +47,6 @@
                                     <td>{{item.nombre}}</td>
                                     <td>{{item.cedula}}</td>
                                     <td>{{item.correo}}</td>
-                                    <td>{{item.clave}}</td>
-                                    <td>{{item.claveConfirmacion}}</td>
                                     <td>{{item.telefono}}</td>
                                     <td>{{item.fechaNacimiento}}</td>
                                     <td>

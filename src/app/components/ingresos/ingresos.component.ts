@@ -36,6 +36,8 @@ export class IngresosComponent {
     });
   }
 
+  obtenerTamanoArreglo() {     return this.ingresosList.length; }
+
   getAllIngresos() {
     this.ingresosService.getAllIngresosData().subscribe((data: {}) => {
       this.ingresosList = data;
